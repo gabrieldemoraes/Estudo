@@ -1,0 +1,504 @@
+############################################################################################### 
+------------------------------------
+Informações importantes
+------------------------------------
+###############################################################################################
+
+NBC:
+ - NBC-WEB atualizado: http://pmatrd07301d.internalenv.corp:8085/nbc-web/pages/loginPage.jsf
+		   antigo: http://trduat-nbcweb.portal.internalenv.corp:8080/nbc-web/pages/loginPage.jsf;jsessionid=287C33B629E5AC80D99531941ACD59D4.nbc_web_01
+
+ - Usuário: qa-nbcuser
+ - Usuário ADMIN: qa-nbcadmin
+ 
+ 
+NBCWebServiceClient
+    - Usuário:  _svcNBCWSHydraD
+	- Senha: %G6vBbE1Ca
+
+	- Usuário: _svcWSMonitorLeiloesD
+	- Senha: %A6T7QFDEW
+	
+	- Usuário: _svcCvmEmpresasNetD  
+	- Senha: %et29AeUn
+	
+################################################################################################
+ 
+PCO-PUMA:
+ - http://pmatrd11201c.internalenv.corp:8080/#/login
+#### USUARIOS TESTE PCOPUMA ####
+Usuário -> Corretora
+AMOAMO -> 10
+ANY -> 9
+
+DEV-EPUMA-ESUP -> 0
+senha: Password1!
+
+Passo a passo NPM: https://github.com/angular/angular-cli/wiki/stories-1.0-update#angularcli
+
+################################################################################################
+
+GIT HUB:
+ - Comando para comparar arquivos: git fc (file compare)
+ - Comando para mostrar todos os commits que foram feitos: git log 
+ - Comparar duas versões do git: git diff (A comparação é feita pelo ID do commit)
+ - Mostar os arquivos que mudaram: git log -- stat
+ - Cópia completa do repositório do git incluindo o histórico na máquina local: git clone git 
+   ## CUIDADO!! Escolher a pasta correta para clonar os códigos!! ##
+ - Copiar direto um diretório para a máquina local: scp
+ - Trocar de Brach: git checkout nome_da_Brach
+ - "Revisada" do que foi alterado no código: git status
+ - Adicionar tudo que foi alterado no controle de versão: git add (confirmar com git status)
+ - git commit -m "feature/tarefa_do_jira" 
+ - Envio para o servidor: git push
+ - "Pegar" código do servidor: git pull
+ - Verificar sempre em que versão está sendo buildado os snapchots. Se tiver desatualizado, pegar o último release e dar um merger com a branch que deseja mexer
+ porém está desatualizada. git merge "Branch_de_release_atualizada" 
+ - git commit --amend -> se fizer commit errado!!
+ - git checkout -- pom.xml
+ - git diff pom.xml
+
+ Passos para merge:
+ 
+- git status
+- git add ou git . (para todos os arquivos)
+- git commit -m "nome_da_tarefa" ## CUIDADO COM O COMMIT!!!! ##
+- git push
+
+ Quando atualizar a senha:
+ 
+- git config --global --unset credential.helper
+- git config --system --unset credential.helper
+ 
+################################################################################################
+
+JAVA:
+- Teste:
+	- Para verificar as linhas que foram testadas: Pasta_do_projeto > target > site > jacoco > index.html (Abrir como web browser). Copiar link e abrir no navegador.
+	  Se o arquivo nao aparecer, atualizar o projeto com "F5" para que o mesmo apareça. 
+	  
+- Comandos:
+	- CTRL+SHIFT+g -> Mostra a hierarquia do método da classe.
+	- CTRL+SHIFT+t -> buscar classes ou métodos.
+	- CTRL+SHIFT+o -> Limpeza no código do que não está sendo usado.
+	
+################################################################################################ 
+
+MAVEN:
+-Comandos:
+	- mvn clean -> fazer uma limpeza geral no Maven.
+	- mvn install -U -> efetuar a instalação do maven incluindo o update.
+	- mvn clean test - Buildando para ver se está tudo certo.
+	
+###############################################################################################
+
+Telefones importantes:
+- Suporte -> 6100
+
+############################################################################################### 
+------------------------------------
+Setup da Maquina
+------------------------------------
+0. Organização dos arquivos
+  - c:/dev/codes -> todos os códigos dos projetos (lugar onde daremos os git clones)
+  - c:/Soft -> Instaladores e programas
+  
+1. Configurar o java
+  - variaveis de ambiente
+    JAVA_HOME = C:\Program Files\Java\jdk1.8.0_121
+    JAVA_TOOL_OPTIONS = -Dfile.encoding=UTF8
+    JRE_HOME = C:\Program Files\Java\jre1.8.0_121
+2. Configurar o maven
+  - variaveis de ambiente
+    - M2_HOME = C:\Soft\apache-maven-3.5.2
+    - M2_REPO = C:\Users\mvolpe\.m2\repository
+    - ir na pasta conf do maven e editar o settings para usar as configurações da bolsa e apontar o localRepository para onde vc configurou a variavel M2_REPO
+      ex: <localRepository>C:\Users\mvolpe\.m2\repository</localRepository>
+      
+3. Configurar o eclipse
+  - acertar a instalação do java e apontar sempre para a JDK
+    Preferences > Java > Installed JREs > Add... > caminho da sua JAVA_HOME
+  - acertar a configuração do maven para ele não usar o padrão dele
+    Preferences > Maven > Installations > Add... > caminho da sua M2_HOME
+    Preferences > Maven > User Settings > User Settings > Browse... > caminho M2_HOME\conf\settings.xml 
+    Preferences > Maven > User Settings > User Settings > Browse... > Update Settings 
+    Preferences > Maven > User Settings > User Settings > Browse... > Local Repository > Reindex 
+
+4. Baixar os projetos do git
+  - Abrir o GitBash e ir na pasta c > dev > codes 
+  - Pegar a URL do clone no BitBucket  
+    $ git clone <url_copiada>
+  - Executar o comando (tanto faz se for no cmd ou no próprio GitBash)
+    $ mvn clean install
+    $ mvn eclipse:clean (apaga os .project etc...limpa as referencias dos objetos etc)
+    $ mvn eclipse:eclipse (ele recria as referencias e ponteiros)
+    
+5. Configurar workspace no Eclipse
+  - criar uma pasta workspace separada do codigo do projeto para evitar erros bizarros
+  - criar um workpace por contexto de projeto (um workpace para nemo/crr juntos...etc)
+  - Configurar o proxy
+    Preferences > General > Network Connections > Active Provider: Manual
+  - baixo os plugins que eu já sei que eu gosto e baixo do Eclipse Marketplace - Recomendação
+    Eclipse Web Developer Tools
+    Eclipse XML Editors and Tools
+    STS - Spring Tools (para aquele search rapidao)
+  - Viadagens da cor - Opcional
+    Preferences > General > Editors > Text Editors > Line number foreground (cor dos numeros da linha)
+    Preferences > General > Editors > Text Editors > Current line highlight (cor da linha atual - gosto de (160,0,181))
+    Preferences > General > Editors > Text Editors > Selecionar displayed tab width 4, highlight current line, show line numbers
+  - Importar os projetos
+    File > Import > Maven > Existing Maven Projects
+  - Arrumar a ordem dos pacotes (durante o comando mvn eclipse:eclipse ele coloca a pasta de testes pra cima da de java)
+    Botao Direito no Projeto > Properties > Java Build Path > Order and Export > padrão geralmente usado:
+      src/main/java
+      src/main/resources
+      src/test/java
+      src/test/resources
+  - Conferir que o projeto está marcado como maven - Botão Direito no projeto - se nao aparecer a opção Maven logo de cara...
+    Botão Direito > Configure > Convert to Maven Project
+	
+############################################################################################### 
+------------------------------------
+Querys Oracle
+------------------------------------
+###############################################################################################
+select news_msge_id,
+  to_char(news_msge_date_scdl,'HH24:MM:SS'), 
+  to_char(news_msge_crtn_date,'HH24:MM:SS'),
+  news_msge_body_text
+from tnbcnews_msge
+where news_msge_date_scdl > to_char(sysdate,'HH24:MM:SS')
+and news_msge_stus_code = 2 
+order by news_msge_date_scdl;
+ -----------------------------------------------------------------------
+  -- NewsTemplateDao -- 
+SELECT * from lnbcnews_msge_adtg where user_agnc_id = 11 and news_msge_adtg_actn_date like '21/08/18%';
+
+SELECT * from lnbcnews_msge_adtg where news_msge_adtg_mtvt_text = 'Delete Template Test';
+
+SELECT * from tnbcnews_msge_tmpt where news_msge_tmpt_name = 'Delete Template Test' and news_msge_tmpt_stus_code = 2 ; 
+
+Delete from tnbcnews_msge_tmpt where news_msge_tmpt_name = 'Delete Template Test' and news_msge_tmpt_stus_code = 2 ; 
+
+select NEWS_MSGE_TMPT_ID, 
+       USER_AGNC_ID, 
+       NEWS_MSGE_TMPT_HDLN_DSCN, 
+       news_msge_tmpt_stus_code 
+       from tnbcnews_msge_tmpt 
+       where news_msge_tmpt_name = 'Delete Template Test' 
+       and news_msge_tmpt_stus_code = 1 ; 
+
+-- NewsMessageDAO -- 
+SELECT * from lnbcnews_msge_adtg where user_agnc_id = 11 and news_msge_adtg_actn_date like '21/08/18%';
+
+SELECT * from tnbcnews_msge where news_msge_crtn_date like '21/08/18%';
+
+SELECT * from tnbcnews_msge where news_msge_id = 9019;
+
+SELECT * from tnbcnews_msge where news_msge_stus_code = 3;
+
+############################################################################################### 
+------------------------------------
+Internet Explorer
+------------------------------------
+###############################################################################################
+- Para trocar a versão do internet explorar faça:
+	- pressione F12.
+	- Vá até "Emulation" 
+	- Altere em "User Agency String"
+
+############################################################################################### 
+------------------------------------
+Python
+------------------------------------
+###############################################################################################
+	
+-----------------------------------------------------------------------------
+------------------ CONFIG DE PROXY PARA PIP INSTALL - PYTHON  ---------------
+-----------------------------------------------------------------------------
+
+pip --proxy http://CORPORATE%5Cgapinto:%23Hobbit97@10.0.0.24:8080 install pytibrv.Tibrv
+
+https://chocolatey.org/ 
+
+http://sanseeni.blogspot.com/2012/11/library-not-found-tibrvj.html	
+
+http://confluence.intraservice.corp:8090/pages/viewpage.action?pageId=73665298
+
+JAVA_TOOL_OPTIONS -Dfile.encoding=UTF8
+
+############################################################################################### 
+------------------------------------
+Tibco
+------------------------------------
+###############################################################################################
+
+tibrvlisten -service 7001 -network "10.103.28.40;239.114.70.1" -daemon tcp:pmatrd06001d.internalenv.corp:8025 TEST.MESSAGE
+
+tibrvsend -service 7001 -network "10.103.28.40;239.114.70.1" -daemon tcp:pmatrd06001d.internalenv.corp:8025 TEST.MESSAGE ""Hello world""]
+
+
+http://confluence.intraservice.corp:8090/display/NFR/Primeiros+Passos+-+Novos+Colaboradores+no+Projeto+LINE 
+
+http://confluence.intraservice.corp:8090/pages/viewpage.action?pageId=58629459 
+
+Acesso Servidor Windows (pmatrd05801d, pmatrd05901d)
+
+http://confluence.intraservice.corp:8090/pages/viewpage.action?pageId=50501280#Prepara%C3%A7%C3%A3odaM%C3%A1quina-Instala%C3%A7%C3%A3o 
+
+############################################################################################### 
+------------------------------------
+LINE 5
+------------------------------------
+###############################################################################################
+
+LINE 5 Web:
+	- Usuário: DEV-LINE5-EOPS
+			   DEV-LINE5-FRIS
+			   DEV-LINE5-FMRI
+	- Senha: Bvmf@123
+	
+1) baixar e buildar (mvn assembly:assembly) o projeto line-zoo do bitbucket para fazer a importação das configurações no zookeeper local
+2) copiar o zookeper do temporário para sua máquina e subir ele local
+
+Tanto o redis quanto o zookeeper vocês subirão localmente
+Redis: <REDIS_HOME>/redis-server.exe
+ZK: <ZK_HOME>/bin/zkServer.cmd
+
+Usuários schema SQL:
+
+Usuario: line_gapinto || line_gapinto_t
+Senha:   line_gapinto || line_gapinto_t
+
+Quando tiver o release de uma nova versão, é preciso efetuar os seguintes passos para que a develop fique correta no ambiente local:
+- Add and Remove no Jboss e remover todo mundo. 
+- Verificar se nos poms dos projetos as tags que apontam as dependências entre os projetos estão corretas. Exemplo: na parte do commons verificar se está sem ou com "-SNAPSHOT". 
+Se houver dúvida, ir no POM do projeto e verificar qual a versão do arquivo e efetuar o apontamento correto para os demais POM's.
+- Ir até o home do Jboss e limpar as seguintes pastas: Data, deployments, tmp e logs. -> Isso deveria acontecer com o clean do Eclipse.
+- Buildar todos os projetos.
+- Limpar os projetos.
+- Reiniciar o eclipse 
+- Adicionar novamente no Jboss.
+
+Carga do Loader:
+- linezoo-loader-local
+- linezoo-web-local
+- carga loader -> executar os passos do script 
+- depois do script finalizado, verificar no Redis Desktop a chave ctrl. Verificar se o sts está igual a 2. Se sim, modificar para 1 para que apareça sucesso na subida do portal. 
+
+############################################################################################### 
+------------------------------------
+Configuração para rodar os testes integrados:
+------------------------------------
+###############################################################################################
+
+-ea -Dflyway.enabled=false
+			
+zookeeper.address
+localhost:2181
+			
+zookeeper.environment
+GABRPINTO
+			
+zookeeper.instanceNode
+/LINE/LOADER
+	
+Servidor CC: 
+PMATRD09102D.internalenv.corp
+
+Local para verificar o log:
+/apps/pumausr/contractcache/log/ContractCache.log
+
+
+Configuração da integração com o ContractCache de smoke:
+
+contract-cache.daemon.address=tcp:pmatrd09101d.internalenv.corp:9025
+contract-cache.integration.tibco.enabled=true
+contract-cache.max.expiration.date=2040-12-31
+contract-cache.max.expiration.date.format=yyyy-MM-dd
+contract-cache.network.address=10.103.28.41;239.114.123.33;239.114.123.33
+contract-cache.request.subject=CC_RESP.CCEOSGRP123.INSTRUMENT.DATA
+contract-cache.response.subject=CC_REQ.CCEOSGRP123.INSTRUMENT.DATA
+contract-cache.search.file.interval.ms=1000
+contract-cache.search.integration.update.interval=0 0/1 3-23 * * ? *
+contract-cache.service.number=3190
+contract-cache.timeZone=America/Sao_Paulo
+entities.moving.between.cores.timeZone=America/Sao_Paulo
+entities.moving.between.cores.update.interval=0 50 20 1/1 * ? * 
+ 
+
+Configuracao Contract Cache local: 	
+
+contract-cache.daemon.address=tcp:ffdevfa01:9025
+contract-cache.integration.tibco.enabled=false
+contract-cache.max.expiration.date=2040-12-31
+contract-cache.max.expiration.date.format=yyyy-MM-dd
+contract-cache.network.address=10.2.6.64;239.14.123.5;239.14.123.4 	
+contract-cache.request.subject=CC_REQ.CCEOSGRP123.INSTRUMENT.DATA
+contract-cache.response.subject=CC_RESP.CCEOSGRP123.INSTRUMENT.DATA
+contract-cache.search.file.interval.ms=1000
+contract-cache.search.integration.update.interval=0 0/1 3-23 * * ? *
+contract-cache.service.number=6004
+contract-cache.timeZone=America/Sao_Paulo
+
+
+Banco alternativo (Redis):
+ 
+redis.address=redis://apstrd16901d:6379/26
+redis.address.pos=redis://apstrd16901d:6380/26
+redis.address.acc=redis://apstrd16901d:6381/26
+redis.address.doc=redis://apstrd16901d:6382/26
+redis.address.ixm=redis://apstrd16901d:6383/26
+redis.address.rmktRu=redis://apstrd16901d:6383/26
+redis.address.rmktru=redis://apstrd16901d:6383/26
+redis.address.lmtV=redis://apstrd16901d:6384/26
+redis.address.lmtv=redis://apstrd16901d:6384/26
+redis.address.prf=redis://apstrd16901d:6385/26
+redis.address.mrmkt=redis://apstrd16901d:6386/26
+redis.address.mrmktbe=redis://apstrd16901d:6386/26
+redis.address.mrmktbei=redis://apstrd16901d:6386/26
+redis.address.ale=redis://apstrd16901d:6387/26
+redis.address.ev=redis://apstrd16901d:6387/26
+redis.address.ufi=redis://apstrd16901d:6388/26 
+
+############################################################################################### 
+------------------------------------
+Deploy dos ambientes LINE
+------------------------------------
+###############################################################################################
+
+- Line-Loader
+	- Ir até o confluence e pegar as máquinas: http://confluence.intraservice.corp:8090/pages/viewpage.action?pageId=58629459
+	- Ir até o bamboo e pegar o último build do deployment.
+	- Quando houver release, baixar a release. 
+	- Copiar o artefato para o servidor (olhar no confluence o endereço das máquinas).
+	- O arquivo copiado para o servidor estará zipado, portanto, é preciso desconpactar o arquivo.
+	- logar como pumausr
+	- pegar o path da máquina em questão no confluence (no caso do Loader: ll/apps/puma)
+	- ir ate a pasta scripts -> ./seeall
+	- parar o loader de smoke
+	- Ir para a pasta bin
+	- apagar a última versão que foi colocada.
+	- copiar o novo arquivo dizipado para a pasta em questão (conferir se foi copiado e se não há resquicios da antiga)
+	- entrar na pasta lib
+	- remover as dependências do Line
+	- copiar o arquivo dizipado para a pasta lib.
+	- Para carregar uma nova carga: lldr -> carga -> carga -> arquivos para efetuar load . Copiar um dos arquivos ou executar o script
+	- script -> startAll . Iniciar o Loader.
+	- Para flushDb pegar o endereço no confluence e confirmar o endereço no zookeeper
+	- Para parar o Loader de risco -> ./stop --rmkt 
+	- Para startar o Loader de risco -> ./start --rmkt
+	- Obs: o Loader de risco não precisa de flush
+	
+- Line-Web
+	- Ir até o confluence e pegar a máquina do portal: http://confluence.intraservice.corp:8090/pages/viewpage.action?pageId=58629459 -> /opt/jboss/line
+	- Fazer o download do último build de deployment do Bamboo.
+	- Remover os arquivos referentes as versões antigas.
+	- Copiar os arquivos para o servidor (na home antes de descompactar)
+	- Descompactar os arquivos
+	- sudo su _svcLINED
+	- Acessar a pasta indicada no confluence
+	- acessar a pasta scripts- ./jboss-as-standalone.sh stop 
+	- acessar a pasta deployments
+	- rm *
+	- copiar os arquivos decompactados para a pasta	
+		- front-end: /bin
+		-back-end: jboss -> line -> deployments-> .war
+	-acessar a pasta script
+	- ./jboss-as-standalone.sh start
+	
+- Line-API
+	- Ir até o confluence e pegar a máquina da API: http://confluence.intraservice.corp:8090/pages/viewpage.action?pageId=58629459
+	- efetuar a cópia dos arquivos do último deployment (apenas de back-end)
+	- descompactar o arquivo de back-end
+	- Se o commons já estiver atualizado, não precisa atualizar na API.
+	- sudo su _svcLINED
+	- ir ate a pasta indicada no confluence
+	- ir para a pasta scripts
+	- stop jboss
+	- ir até a pasta deployments
+	- rm line *
+	- copiar os arquivos descompactados da home do usuário para a pasta deployment
+	- Ir até a pasta scripts
+	- jboss start
+	- Se quiser acompanhar o processo: ir até a pasta log -> less server.log
+	- shift+f (para acompanhar o log)
+
+Ambiente de smoke:
+
+http://pmatrd11001d.internalenv.corp:9283 
+  
+ 
+Comando para mapear o K:
+
+NET USE K: \\MSREPO\MS_REPO /PERSISTENT:YES 
+
+Como injetar posições no core:
+
+1) entrar na Máquina do core: pmatrd09901d 
+2) logar como pumausr : sudo su pumausr   (NÃO ir para root antes, fazer o sudo su direto do meu usuário)
+3) entrar no diretório  /apps/puma/linecore1
+4) INjetar conforme os exemplos
+Exemplos:
+./scripts/injectTool NOS_AND_TRADE -core :60010,:60011 -gw INJ1 -brk 979 -acc 300016 -symbol DOLF20 -qty ,1000 -px ,10 -msgQty 1 -speed 10
+./scripts/injectTool NOS_AND_TRADE -core :60010,:60011 -gw INJ1 -brk 979 -acc 16 -symbol DOLF20 -qty ,1000 -px ,10 -msgQty 1 -speed 10 
+
+###############################################################################################
+
+set REDIS_HOME=C:\dev\redis\Redis
+
+cd %REDIS_HOME%
+call redis-server.exe redis.windows.conf 
+ 
+
+############################################################################################### 
+------------------------------------
+Abertura de chamado para ALM
+------------------------------------
+###############################################################################################
+
+Abrir como suporte o ticket para liberação de acesso no bitbucket de um novo projeto. 
+ 
+http://jira.intraservice.corp:8080/browse/LCOR-319 
+
+############################################################################################### 
+------------------------------------
+Base para abertura de ticket
+------------------------------------
+###############################################################################################
+
+http://jira.intraservice.corp:8080/browse/LWEB-2093
+
+############################################################################################### 
+------------------------------------
+Atalhos do eclipse
+------------------------------------
+###############################################################################################
+
+Criação de método: alt+shift+m
+
+Rename automático: alt+shift+r
+
+Pesquisa: ctrl+shift+g
+
+Pesquisa 2: ctrl+h
+
+Criação de variável: alt+shift_l
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
